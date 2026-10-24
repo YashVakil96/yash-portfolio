@@ -419,14 +419,14 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <!-- CARD 1: Phones Are Overheating -->
-                <div class="perspective-container h-[400px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
+                <div class="perspective-container h-[480px] sm:h-[490px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
                     <div class="flip-card-inner w-full h-full">
                         
                         <!-- FRONT (Human Summary) -->
-                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-lagAmber/70 p-8 flex flex-col justify-between shadow-xl transition-colors">
+                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-lagAmber/70 p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-colors overflow-hidden">
                             <div>
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="w-14 h-14 rounded-2xl bg-lagAmber/15 border border-lagAmber/30 flex items-center justify-center text-3xl">
+                                <div class="flex items-center justify-between mb-4 sm:mb-5">
+                                    <span class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-lagAmber/15 border border-lagAmber/30 flex items-center justify-center text-3xl shrink-0">
                                         🔥
                                     </span>
                                     <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-lagAmber">
@@ -436,55 +436,59 @@
                                 <div class="font-mono text-xs uppercase tracking-wider text-lagAmber font-semibold mb-1">
                                     Mobile &amp; Console FPS Rescue
                                 </div>
-                                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white mb-3">
                                     "Phones Are Overheating"
                                 </h3>
-                                <p class="text-gray-300 text-base leading-relaxed">
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
                                     Players uninstall when frames drop or batteries drain. I hunt down hidden memory leaks and bottlenecks so your game runs butter-smooth on everyday devices.
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-borderSubtle flex items-center justify-between">
+                            <div class="pt-3.5 border-t border-borderSubtle flex items-center justify-between">
                                 <span class="font-mono text-xs text-gray-400">Target: Locked 60/120 FPS</span>
-                                <span class="px-3.5 py-2 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashCyan hover:border-yashCyan transition-colors">
+                                <span class="px-3 py-1.5 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashCyan hover:border-yashCyan transition-colors">
                                     🔍 Inspect Tech Stats
                                 </span>
                             </div>
                         </div>
 
                         <!-- BACK (CTO Stats) -->
-                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-yashCyan p-8 flex flex-col justify-between shadow-2xl">
+                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-yashCyan p-6 sm:p-7 flex flex-col justify-between shadow-2xl overflow-hidden">
                             <div>
-                                <div class="flex items-center justify-between mb-5">
+                                <div class="flex items-center justify-between mb-3.5">
                                     <span class="font-mono text-xs text-yashCyan font-bold uppercase tracking-wider">
                                         // CTO TELEMETRY SPECS
                                     </span>
-                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-yashCyan/15 text-yashCyan">
+                                    <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-yashCyan/15 text-yashCyan">
                                         PROFILING
                                     </span>
                                 </div>
-                                <h4 class="font-display text-xl font-bold text-white mb-4">
+                                <h4 class="font-display text-lg sm:text-xl font-bold text-white mb-3">
                                     Mobile &amp; Console FPS Rescue
                                 </h4>
-                                <ul class="space-y-3 font-mono text-xs sm:text-sm text-gray-200">
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> Unity Profiler &amp; Frame Debugger Deep-Dives
+                                <ul class="space-y-2 sm:space-y-2.5 font-mono text-xs text-gray-200">
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>Unity Profiler &amp; Frame Debugger Deep-Dives</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> Zero-Alloc GC Loops (0B Hot-Path)
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>Zero-Alloc GC Loops (0B Hot-Path)</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> Draw Call Batching &amp; GPU Instancing
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>Draw Call Batching &amp; GPU Instancing</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> Thermal &amp; RAM Footprint Cut (-60% RAM)
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>Thermal &amp; RAM Footprint Cut (-60% RAM)</span>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="pt-3 flex items-center justify-between font-mono text-xs text-gray-400">
+                            <div class="pt-3 border-t border-borderSubtle/60 flex items-center justify-between font-mono text-xs text-gray-400">
                                 <span>Click anywhere to flip back</span>
-                                <span class="text-yashCyan">↺ Flip</span>
+                                <span class="text-yashCyan font-semibold">↺ Flip</span>
                             </div>
                         </div>
 
@@ -492,14 +496,14 @@
                 </div>
 
                 <!-- CARD 2: Our Code Is Spaghetti -->
-                <div class="perspective-container h-[400px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
+                <div class="perspective-container h-[480px] sm:h-[490px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
                     <div class="flip-card-inner w-full h-full">
                         
                         <!-- FRONT (Human Summary) -->
-                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-yashEmerald/70 p-8 flex flex-col justify-between shadow-xl transition-colors">
+                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-yashEmerald/70 p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-colors overflow-hidden">
                             <div>
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="w-14 h-14 rounded-2xl bg-yashEmerald/15 border border-yashEmerald/30 flex items-center justify-center text-3xl">
+                                <div class="flex items-center justify-between mb-4 sm:mb-5">
+                                    <span class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-yashEmerald/15 border border-yashEmerald/30 flex items-center justify-center text-3xl shrink-0">
                                         🍝
                                     </span>
                                     <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-yashEmerald">
@@ -509,55 +513,59 @@
                                 <div class="font-mono text-xs uppercase tracking-wider text-yashEmerald font-semibold mb-1">
                                     Clean, Scalable C# Architecture
                                 </div>
-                                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white mb-3">
                                     "Our Code Is Spaghetti"
                                 </h3>
-                                <p class="text-gray-300 text-base leading-relaxed">
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
                                     Adding one new feature shouldn't break three old ones. I untangle messy prototypes into clean, modular systems your whole team can build on effortlessly.
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-borderSubtle flex items-center justify-between">
+                            <div class="pt-3.5 border-t border-borderSubtle flex items-center justify-between">
                                 <span class="font-mono text-xs text-gray-400">Target: Zero Tech-Debt</span>
-                                <span class="px-3.5 py-2 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashEmerald hover:border-yashEmerald transition-colors">
+                                <span class="px-3 py-1.5 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashEmerald hover:border-yashEmerald transition-colors">
                                     🔍 Inspect Tech Stats
                                 </span>
                             </div>
                         </div>
 
                         <!-- BACK (CTO Stats) -->
-                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-yashEmerald p-8 flex flex-col justify-between shadow-2xl">
+                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-yashEmerald p-6 sm:p-7 flex flex-col justify-between shadow-2xl overflow-hidden">
                             <div>
-                                <div class="flex items-center justify-between mb-5">
+                                <div class="flex items-center justify-between mb-3.5">
                                     <span class="font-mono text-xs text-yashEmerald font-bold uppercase tracking-wider">
                                         // CTO ARCHITECTURE SPECS
                                     </span>
-                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-yashEmerald/15 text-yashEmerald">
+                                    <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-yashEmerald/15 text-yashEmerald">
                                         C# / DOTS
                                     </span>
                                 </div>
-                                <h4 class="font-display text-xl font-bold text-white mb-4">
+                                <h4 class="font-display text-lg sm:text-xl font-bold text-white mb-3">
                                     Clean, Scalable C# Systems
                                 </h4>
-                                <ul class="space-y-3 font-mono text-xs sm:text-sm text-gray-200">
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> Decoupled Event-Driven C# &amp; DI
+                                <ul class="space-y-2 sm:space-y-2.5 font-mono text-xs text-gray-200">
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>Decoupled Event-Driven C# &amp; DI</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> ScriptableObject Data Pipelines
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>ScriptableObject Data Pipelines</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> DOTS / ECS &amp; Burst Compiler SIMD
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>DOTS / ECS &amp; Burst Compiler SIMD</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-yashEmerald">✔</span> Custom Editor Tooling &amp; State Machines
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald shrink-0">✔</span>
+                                        <span>Custom Editor Tooling &amp; State Machines</span>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="pt-3 flex items-center justify-between font-mono text-xs text-gray-400">
+                            <div class="pt-3 border-t border-borderSubtle/60 flex items-center justify-between font-mono text-xs text-gray-400">
                                 <span>Click anywhere to flip back</span>
-                                <span class="text-yashEmerald">↺ Flip</span>
+                                <span class="text-yashEmerald font-semibold">↺ Flip</span>
                             </div>
                         </div>
 
@@ -565,72 +573,76 @@
                 </div>
 
                 <!-- CARD 3: We Need to Ship on Time -->
-                <div class="perspective-container h-[400px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
+                <div class="perspective-container h-[480px] sm:h-[490px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
                     <div class="flip-card-inner w-full h-full">
                         
                         <!-- FRONT (Human Summary) -->
-                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-yashCyan/70 p-8 flex flex-col justify-between shadow-xl transition-colors">
+                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-lootGold/70 p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-colors overflow-hidden">
                             <div>
-                                <div class="flex items-center justify-between mb-6">
-                                    <span class="w-14 h-14 rounded-2xl bg-yashCyan/15 border border-yashCyan/30 flex items-center justify-center text-3xl">
+                                <div class="flex items-center justify-between mb-4 sm:mb-5">
+                                    <span class="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-lootGold/15 border border-lootGold/30 flex items-center justify-center text-3xl shrink-0">
                                         🚀
                                     </span>
-                                    <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-yashCyan">
+                                    <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-lootGold">
                                         PERK #03
                                     </span>
                                 </div>
-                                <div class="font-mono text-xs uppercase tracking-wider text-yashCyan font-semibold mb-1">
+                                <div class="font-mono text-xs uppercase tracking-wider text-lootGold font-semibold mb-1">
                                     Prototype-to-Launch Studio Partner
                                 </div>
-                                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-white mb-3">
                                     "We Need to Ship on Time"
                                 </h3>
-                                <p class="text-gray-300 text-base leading-relaxed">
+                                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
                                     Need a veteran lead to take ownership of gameplay systems, combat feel, or final release polish? I plug right into your pipeline and help you cross the finish line.
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-borderSubtle flex items-center justify-between">
+                            <div class="pt-3.5 border-t border-borderSubtle flex items-center justify-between">
                                 <span class="font-mono text-xs text-gray-400">Target: Commercial Launch</span>
-                                <span class="px-3.5 py-2 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashCyan hover:border-yashCyan transition-colors">
+                                <span class="px-3 py-1.5 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-lootGold hover:border-lootGold transition-colors">
                                     🔍 Inspect Tech Stats
                                 </span>
                             </div>
                         </div>
 
                         <!-- BACK (CTO Stats) -->
-                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-lootGold p-8 flex flex-col justify-between shadow-2xl">
+                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-lootGold p-6 sm:p-7 flex flex-col justify-between shadow-2xl overflow-hidden">
                             <div>
-                                <div class="flex items-center justify-between mb-5">
+                                <div class="flex items-center justify-between mb-3.5">
                                     <span class="font-mono text-xs text-lootGold font-bold uppercase tracking-wider">
                                         // PRODUCTION LEADERSHIP SPECS
                                     </span>
-                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-lootGold/15 text-lootGold">
+                                    <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-lootGold/15 text-lootGold">
                                         FULL-CYCLE
                                     </span>
                                 </div>
-                                <h4 class="font-display text-xl font-bold text-white mb-4">
+                                <h4 class="font-display text-lg sm:text-xl font-bold text-white mb-3">
                                     Prototype-to-Launch Partner
                                 </h4>
-                                <ul class="space-y-3 font-mono text-xs sm:text-sm text-gray-200">
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-lootGold">✔</span> 6+ Years Production Unity Leadership
+                                <ul class="space-y-2 sm:space-y-2.5 font-mono text-xs text-gray-200">
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold shrink-0">✔</span>
+                                        <span>6+ Years Production Unity Leadership</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-lootGold">✔</span> 2D &amp; 3D Combat, Physics &amp; Game Feel
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold shrink-0">✔</span>
+                                        <span>2D &amp; 3D Combat, Physics &amp; Game Feel</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-lootGold">✔</span> Steam / Mobile / Console Release Prep
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold shrink-0">✔</span>
+                                        <span>Steam / Mobile / Console Release Prep</span>
                                     </li>
-                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
-                                        <span class="text-lootGold">✔</span> PR Code Reviews &amp; Team Mentorship
+                                    <li class="flex items-center gap-2.5 px-3 py-2 sm:py-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold shrink-0">✔</span>
+                                        <span>PR Code Reviews &amp; Team Mentorship</span>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="pt-3 flex items-center justify-between font-mono text-xs text-gray-400">
+                            <div class="pt-3 border-t border-borderSubtle/60 flex items-center justify-between font-mono text-xs text-gray-400">
                                 <span>Click anywhere to flip back</span>
-                                <span class="text-lootGold">↺ Flip</span>
+                                <span class="text-lootGold font-semibold">↺ Flip</span>
                             </div>
                         </div>
 
