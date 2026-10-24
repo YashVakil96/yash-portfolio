@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Vakil | Lead Unity Developer & Studio Partner</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#090A0F',
+                        cardDark: '#12151E',
+                        cardHover: '#181C28',
+                        borderSubtle: '#222738',
+                        lagRed: '#FF4757',
+                        lagAmber: '#FFA502',
+                        yashEmerald: '#00E676',
+                        yashCyan: '#00D2FF',
+                        lootGold: '#FFD700'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #090A0F;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Playful subtle dot matrix background */
+        .bg-game-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* Juicy button press & hover physics */
+        .juicy-btn {
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .juicy-btn:hover {
+            transform: translateY(-2px) scale(1.015);
+        }
+        .juicy-btn:active {
+            transform: translateY(1px) scale(0.97);
+        }
+
+        /* Glow effects */
+        .glow-emerald {
+            box-shadow: 0 0 35px -5px rgba(0, 230, 118, 0.35);
+        }
+        .glow-red {
+            box-shadow: 0 0 35px -5px rgba(255, 71, 87, 0.3);
+        }
+        .glow-gold {
+            box-shadow: 0 0 35px -5px rgba(255, 215, 0, 0.35);
+        }
+
+        /* 3D Card Flip & Tilt Styling */
+        .perspective-container {
+            perspective: 1200px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.65s cubic-bezier(0.34, 1.4, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Animated SVG Data Dash */
+        @keyframes flowDash {
+            to {
+                stroke-dashoffset: -40;
+            }
+        }
+        .animate-data-flow {
+            stroke-dasharray: 8 12;
+            animation: flowDash 0.9s linear infinite;
+        }
+
+        @keyframes erraticPulse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-2px, 2px) scale(1.03); }
+            50% { transform: translate(2px, -1px) scale(0.98); }
+            75% { transform: translate(-1px, -2px) scale(1.02); }
+        }
+        .spaghetti-jitter {
+            animation: erraticPulse 0.35s infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090A0F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222738;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00E676;
+        }
+
+        /* Code Syntax Highlighting */
+        .code-kw { color: #c678dd; }
+        .code-tp { color: #e5c07b; }
+        .code-fn { color: #61afef; }
+        .code-str { color: #98c379; }
+        .code-cm { color: #636d83; font-style: italic; }
+        .code-num { color: #d19a66; }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-yashEmerald/25 selection:text-yashEmerald bg-game-grid">
+
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none fixed top-0 left-1/4 w-[500px] h-[500px] bg-yashEmerald/5 rounded-full blur-[130px] -z-10"></div>
+    <div class="pointer-events-none fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-yashCyan/5 rounded-full blur-[130px] -z-10"></div>
+
+    <!-- ===================================================================== -->
+    <!-- STICKY NAVBAR WITH GAMIFIED EXPLORATION COUNTER                       -->
+    <!-- ===================================================================== -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-obsidian/85 border-b border-borderSubtle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Brand Identity -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-cardDark border border-borderSubtle group-hover:border-yashEmerald flex items-center justify-center font-display font-bold text-lg text-white transition-all shadow-inner">
+                    YV<span class="text-yashEmerald">.</span>
+                </div>
+                <div>
+                    <div class="font-display font-bold text-lg tracking-tight text-white flex items-center gap-2">
+                        Yash Vakil
+                    </div>
+                    <div class="text-xs font-mono text-gray-400 hidden sm:block">Lead Unity Dev &amp; Studio Partner</div>
+                </div>
+            </a>
+
+            <!-- Quick Nav Links -->
+            <nav class="hidden lg:flex items-center gap-1 bg-cardDark/90 border border-borderSubtle rounded-full px-3 py-1.5 text-sm font-medium">
+                <a href="#sandbox" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Sandbox</a>
+                <a href="#upgrades" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Upgrades</a>
+                <a href="#architecture" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Architecture</a>
+                <a href="#games" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Games</a>
+                <a href="#say-hi" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Say Hi</a>
+            </nav>
+
+            <!-- Right Controls: Achievement Counter + Inquiries CTA -->
+            <div class="flex items-center gap-3 relative">
+                
+                <!-- Interactive Achievement Counter Pill -->
+                <div class="relative">
+                    <button id="achievement-menu-btn" type="button" class="juicy-btn flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cardDark border border-borderSubtle hover:border-lootGold/60 font-mono text-xs text-gray-200">
+                        <span class="text-base">🏆</span>
+                        <span id="nav-achievement-text"><strong class="text-lootGold">0/4</strong> Quests</span>
+                    </button>
+
+                    <!-- Dropdown Checklist Popover -->
+                    <div id="achievement-dropdown" class="hidden absolute right-0 mt-3 w-72 sm:w-80 rounded-2xl bg-cardDark border border-borderSubtle shadow-2xl p-4 z-50">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-borderSubtle">
+                            <span class="font-display font-bold text-sm text-white">Exploration Quests</span>
+                            <span id="dropdown-progress-badge" class="font-mono text-xs px-2 py-0.5 rounded-full bg-lootGold/15 text-lootGold">0 / 4 Unlocked</span>
+                        </div>
+                        <ul class="space-y-2.5 font-mono text-xs">
+                            <li id="quest-item-1" class="flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/60 text-gray-400">
+                                <span class="quest-icon text-sm">🔒</span>
+                                <div>
+                                    <div class="font-semibold text-gray-200">Silky Smooth 120 FPS</div>
+                                    <div class="text-[11px] text-gray-400">Flip the "Yash Fix" in the Sandbox</div>
+                                </div>
+                            </li>
+                            <li id="quest-item-2" class="flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/60 text-gray-400">
+                                <span class="quest-icon text-sm">🔒</span>
+                                <div>
+                                    <div class="font-semibold text-gray-200">Under the Hood</div>
+                                    <div class="text-[11px] text-gray-400">Flip any Upgrade Card for CTO stats</div>
+                                </div>
+                            </li>
+                            <li id="quest-item-3" class="flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/60 text-gray-400">
+                                <span class="quest-icon text-sm">🔒</span>
+                                <div>
+                                    <div class="font-semibold text-gray-200">Spaghetti Untangler</div>
+                                    <div class="text-[11px] text-gray-400">Slide the Architecture comparison</div>
+                                </div>
+                            </li>
+                            <li id="quest-item-4" class="flex items-center gap-2.5 p-2 rounded-lg bg-obsidian/60 text-gray-400">
+                                <span class="quest-icon text-sm">🔒</span>
+                                <div>
+                                    <div class="font-semibold text-gray-200">Party Invite Sent!</div>
+                                    <div class="text-[11px] text-gray-400">Grab a custom note in the DM Builder</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Inquiries: DMs Open CTA -->
+                <a href="#say-hi" class="juicy-btn px-4 py-2.5 rounded-xl bg-yashEmerald hover:bg-emerald-400 text-obsidian font-display font-bold text-xs sm:text-sm tracking-tight flex items-center gap-2 shadow-lg shadow-yashEmerald/20">
+                    <span class="w-2 h-2 rounded-full bg-obsidian animate-ping"></span>
+                    <span>Inquiries: DMs Open</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===================================================================== -->
+        <!-- 1. HERO SECTION: THE PLAYABLE "LAG BUSTER" PHYSICS SANDBOX            -->
+        <!-- ===================================================================== -->
+        <section id="sandbox" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24 lg:pt-20 lg:pb-32">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+                
+                <!-- Left Column: Core Identity & Exact Copy (6 Cols) -->
+                <div class="lg:col-span-6 space-y-7">
+                    
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cardDark border border-yashEmerald/40 shadow-sm">
+                        <span class="text-sm">🟢</span>
+                        <span class="font-mono text-xs sm:text-sm font-semibold text-yashEmerald tracking-wide">
+                            Inquiries: DMs Open
+                        </span>
+                        <span class="text-gray-500 font-mono text-xs hidden sm:inline">• Ready for New Builds</span>
+                    </div>
+
+                    <!-- Name & Headline -->
+                    <div class="space-y-3">
+                        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.03]">
+                            Yash Vakil
+                        </h1>
+                        <h2 class="font-display text-2xl sm:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yashEmerald via-yashCyan to-white leading-snug">
+                            Lead Unity Developer &amp; Studio Partner
+                        </h2>
+                    </div>
+
+                    <!-- Exact Subheadline -->
+                    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed font-normal max-w-xl">
+                        Building Smooth 2D/3D Games from Prototype to Launch — Solving Complex Gameplay Architecture &amp; Mobile Performance Bottlenecks
+                    </p>
+
+                    <!-- Core Stack Pills -->
+                    <div class="flex flex-wrap items-center gap-2.5 pt-1 font-mono text-xs sm:text-sm">
+                        <span class="px-4 py-2 rounded-xl bg-cardDark border border-borderSubtle text-yashEmerald font-semibold flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-yashEmerald"></span> C#
+                        </span>
+                        <span class="px-4 py-2 rounded-xl bg-cardDark border border-borderSubtle text-yashCyan font-semibold flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-yashCyan"></span> DOTS
+                        </span>
+                        <span class="px-4 py-2 rounded-xl bg-cardDark border border-borderSubtle text-amber-300 font-semibold flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-300"></span> Profiling
+                        </span>
+                        <span class="px-4 py-2 rounded-xl bg-cardDark border border-borderSubtle text-purple-300 font-semibold flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-purple-300"></span> 2D &amp; 3D
+                        </span>
+                    </div>
+
+                    <!-- Primary & Secondary CTAs -->
+                    <div class="flex flex-wrap items-center gap-4 pt-3">
+                        <a href="#say-hi" class="juicy-btn px-7 py-4 rounded-2xl bg-yashEmerald hover:bg-emerald-400 text-obsidian font-display font-bold text-base glow-emerald flex items-center gap-2.5">
+                            <span>Grab a DM Invite ⚡</span>
+                        </a>
+                        <button type="button" onclick="triggerLagBusterDemo()" class="juicy-btn px-6 py-4 rounded-2xl bg-cardDark hover:bg-cardHover text-white border border-borderSubtle hover:border-yashCyan/50 font-display font-semibold text-base flex items-center gap-2">
+                            <span>Test the Lag Buster 👉</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column: The Playable "Lag Buster" Physics Sandbox (6 Cols) -->
+                <div class="lg:col-span-6">
+                    <div id="sandbox-window" class="rounded-3xl bg-cardDark border-2 border-lagRed/60 glow-red overflow-hidden transition-all duration-500">
+                        
+                        <!-- Game Window Top Bar -->
+                        <div class="bg-obsidian/90 px-5 py-3.5 border-b border-borderSubtle flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-lagRed"></span>
+                                <span class="w-3 h-3 rounded-full bg-lagAmber"></span>
+                                <span class="w-3 h-3 rounded-full bg-yashEmerald"></span>
+                                <span id="sandbox-build-title" class="ml-2 font-mono text-xs font-bold text-lagRed tracking-wider">
+                                    🔴 SPAGHETTI_BUILD.exe
+                                </span>
+                            </div>
+
+                            <!-- Live HUD Pill -->
+                            <div id="sandbox-hud-pill" class="px-3 py-1 rounded-full bg-lagRed/15 border border-lagRed/40 font-mono text-xs font-semibold text-lagRed flex items-center gap-2">
+                                <span id="hud-fps">24 FPS</span>
+                                <span class="opacity-40">|</span>
+                                <span id="hud-ms">41.6ms</span>
+                                <span class="opacity-40">|</span>
+                                <span id="hud-temp">🔥 Phone Overheating</span>
+                            </div>
+                        </div>
+
+                        <!-- Interactive HTML5 Canvas Area -->
+                        <div class="relative h-80 sm:h-96 w-full bg-obsidian select-none overflow-hidden cursor-crosshair">
+                            <canvas id="lag-buster-canvas" class="w-full h-full block"></canvas>
+
+                            <!-- Floating Helper Prompt Inside Canvas -->
+                            <div class="pointer-events-none absolute top-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian/80 backdrop-blur px-2.5 py-1 rounded-lg border border-white/10">
+                                    🖱️ Move cursor to scatter entities
+                                </span>
+                                <span id="entity-counter-badge" class="bg-obsidian/80 backdrop-blur px-2.5 py-1 rounded-lg border border-white/10 text-gray-200">
+                                    Entities: 100
+                                </span>
+                            </div>
+
+                            <!-- Floating RPG Buff Popup Overlay -->
+                            <div id="rpg-buff-popup" class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 transform translate-y-4">
+                                <div class="px-5 py-2.5 rounded-2xl bg-obsidian/90 border-2 border-yashEmerald shadow-2xl font-mono font-bold text-lg sm:text-xl text-yashEmerald tracking-tight">
+                                    +96 FPS! ZERO GC ALLOC! ⚡
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Tactile Control Deck -->
+                        <div class="p-4 sm:p-5 bg-cardDark border-t border-borderSubtle flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                            
+                            <!-- The Big Juicy Switch -->
+                            <button id="yash-fix-btn" type="button" class="juicy-btn flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-yashEmerald to-yashCyan text-obsidian font-display font-bold text-base shadow-lg shadow-yashEmerald/20 flex items-center justify-center gap-2.5">
+                                <span id="yash-fix-icon" class="text-xl">⚡</span>
+                                <span id="yash-fix-label">Apply the Yash Fix</span>
+                            </button>
+
+                            <!-- Secondary Fun Button: +500 Entities -->
+                            <button id="spawn-entities-btn" type="button" class="juicy-btn py-3.5 px-5 rounded-2xl bg-obsidian hover:bg-cardHover text-gray-200 border border-borderSubtle hover:border-yashCyan font-mono text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5">
+                                <span>+500 Entities</span>
+                                <span class="text-yashCyan">🚀</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- 2. "WHAT'S HURTING YOUR GAME?" — 3D TILT GAME UPGRADE CARDS           -->
+        <!-- ===================================================================== -->
+        <section id="upgrades" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-borderSubtle">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cardDark border border-borderSubtle font-mono text-xs text-yashCyan">
+                    <span>🎮 LEVEL UP YOUR PROJECT</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                    Pick Your Power-Up
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg">
+                    Simple answers upfront. Click any card to flip for the nerdy engineering stats.
+                </p>
+            </div>
+
+            <!-- 3 Upgrade Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- CARD 1: Phones Are Overheating -->
+                <div class="perspective-container h-[400px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
+                    <div class="flip-card-inner w-full h-full">
+                        
+                        <!-- FRONT (Human Summary) -->
+                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-lagAmber/70 p-8 flex flex-col justify-between shadow-xl transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="w-14 h-14 rounded-2xl bg-lagAmber/15 border border-lagAmber/30 flex items-center justify-center text-3xl">
+                                        🔥
+                                    </span>
+                                    <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-lagAmber">
+                                        PERK #01
+                                    </span>
+                                </div>
+                                <div class="font-mono text-xs uppercase tracking-wider text-lagAmber font-semibold mb-1">
+                                    Mobile &amp; Console FPS Rescue
+                                </div>
+                                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                                    "Phones Are Overheating"
+                                </h3>
+                                <p class="text-gray-300 text-base leading-relaxed">
+                                    Players uninstall when frames drop or batteries drain. I hunt down hidden memory leaks and bottlenecks so your game runs butter-smooth on everyday devices.
+                                </p>
+                            </div>
+
+                            <div class="pt-4 border-t border-borderSubtle flex items-center justify-between">
+                                <span class="font-mono text-xs text-gray-400">Target: Locked 60/120 FPS</span>
+                                <span class="px-3.5 py-2 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashCyan hover:border-yashCyan transition-colors">
+                                    🔍 Inspect Tech Stats
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- BACK (CTO Stats) -->
+                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-yashCyan p-8 flex flex-col justify-between shadow-2xl">
+                            <div>
+                                <div class="flex items-center justify-between mb-5">
+                                    <span class="font-mono text-xs text-yashCyan font-bold uppercase tracking-wider">
+                                        // CTO TELEMETRY SPECS
+                                    </span>
+                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-yashCyan/15 text-yashCyan">
+                                        PROFILING
+                                    </span>
+                                </div>
+                                <h4 class="font-display text-xl font-bold text-white mb-4">
+                                    Mobile &amp; Console FPS Rescue
+                                </h4>
+                                <ul class="space-y-3 font-mono text-xs sm:text-sm text-gray-200">
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> Unity Profiler &amp; Frame Debugger Deep-Dives
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> Zero-Alloc GC Loops (0B Hot-Path)
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> Draw Call Batching &amp; GPU Instancing
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> Thermal &amp; RAM Footprint Cut (-60% RAM)
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-3 flex items-center justify-between font-mono text-xs text-gray-400">
+                                <span>Click anywhere to flip back</span>
+                                <span class="text-yashCyan">↺ Flip</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CARD 2: Our Code Is Spaghetti -->
+                <div class="perspective-container h-[400px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
+                    <div class="flip-card-inner w-full h-full">
+                        
+                        <!-- FRONT (Human Summary) -->
+                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-yashEmerald/70 p-8 flex flex-col justify-between shadow-xl transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="w-14 h-14 rounded-2xl bg-yashEmerald/15 border border-yashEmerald/30 flex items-center justify-center text-3xl">
+                                        🍝
+                                    </span>
+                                    <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-yashEmerald">
+                                        PERK #02
+                                    </span>
+                                </div>
+                                <div class="font-mono text-xs uppercase tracking-wider text-yashEmerald font-semibold mb-1">
+                                    Clean, Scalable C# Architecture
+                                </div>
+                                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                                    "Our Code Is Spaghetti"
+                                </h3>
+                                <p class="text-gray-300 text-base leading-relaxed">
+                                    Adding one new feature shouldn't break three old ones. I untangle messy prototypes into clean, modular systems your whole team can build on effortlessly.
+                                </p>
+                            </div>
+
+                            <div class="pt-4 border-t border-borderSubtle flex items-center justify-between">
+                                <span class="font-mono text-xs text-gray-400">Target: Zero Tech-Debt</span>
+                                <span class="px-3.5 py-2 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashEmerald hover:border-yashEmerald transition-colors">
+                                    🔍 Inspect Tech Stats
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- BACK (CTO Stats) -->
+                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-yashEmerald p-8 flex flex-col justify-between shadow-2xl">
+                            <div>
+                                <div class="flex items-center justify-between mb-5">
+                                    <span class="font-mono text-xs text-yashEmerald font-bold uppercase tracking-wider">
+                                        // CTO ARCHITECTURE SPECS
+                                    </span>
+                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-yashEmerald/15 text-yashEmerald">
+                                        C# / DOTS
+                                    </span>
+                                </div>
+                                <h4 class="font-display text-xl font-bold text-white mb-4">
+                                    Clean, Scalable C# Systems
+                                </h4>
+                                <ul class="space-y-3 font-mono text-xs sm:text-sm text-gray-200">
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> Decoupled Event-Driven C# &amp; DI
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> ScriptableObject Data Pipelines
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> DOTS / ECS &amp; Burst Compiler SIMD
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-yashEmerald">✔</span> Custom Editor Tooling &amp; State Machines
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-3 flex items-center justify-between font-mono text-xs text-gray-400">
+                                <span>Click anywhere to flip back</span>
+                                <span class="text-yashEmerald">↺ Flip</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CARD 3: We Need to Ship on Time -->
+                <div class="perspective-container h-[400px] tilt-card cursor-pointer" onclick="flipUpgradeCard(this)">
+                    <div class="flip-card-inner w-full h-full">
+                        
+                        <!-- FRONT (Human Summary) -->
+                        <div class="flip-card-front absolute inset-0 rounded-3xl bg-cardDark border-2 border-borderSubtle hover:border-yashCyan/70 p-8 flex flex-col justify-between shadow-xl transition-colors">
+                            <div>
+                                <div class="flex items-center justify-between mb-6">
+                                    <span class="w-14 h-14 rounded-2xl bg-yashCyan/15 border border-yashCyan/30 flex items-center justify-center text-3xl">
+                                        🚀
+                                    </span>
+                                    <span class="font-mono text-xs px-3 py-1 rounded-full bg-obsidian border border-borderSubtle text-yashCyan">
+                                        PERK #03
+                                    </span>
+                                </div>
+                                <div class="font-mono text-xs uppercase tracking-wider text-yashCyan font-semibold mb-1">
+                                    Prototype-to-Launch Studio Partner
+                                </div>
+                                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                                    "We Need to Ship on Time"
+                                </h3>
+                                <p class="text-gray-300 text-base leading-relaxed">
+                                    Need a veteran lead to take ownership of gameplay systems, combat feel, or final release polish? I plug right into your pipeline and help you cross the finish line.
+                                </p>
+                            </div>
+
+                            <div class="pt-4 border-t border-borderSubtle flex items-center justify-between">
+                                <span class="font-mono text-xs text-gray-400">Target: Commercial Launch</span>
+                                <span class="px-3.5 py-2 rounded-xl bg-obsidian border border-borderSubtle text-xs font-mono font-semibold text-yashCyan hover:border-yashCyan transition-colors">
+                                    🔍 Inspect Tech Stats
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- BACK (CTO Stats) -->
+                        <div class="flip-card-back absolute inset-0 rounded-3xl bg-obsidian border-2 border-lootGold p-8 flex flex-col justify-between shadow-2xl">
+                            <div>
+                                <div class="flex items-center justify-between mb-5">
+                                    <span class="font-mono text-xs text-lootGold font-bold uppercase tracking-wider">
+                                        // PRODUCTION LEADERSHIP SPECS
+                                    </span>
+                                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-lootGold/15 text-lootGold">
+                                        FULL-CYCLE
+                                    </span>
+                                </div>
+                                <h4 class="font-display text-xl font-bold text-white mb-4">
+                                    Prototype-to-Launch Partner
+                                </h4>
+                                <ul class="space-y-3 font-mono text-xs sm:text-sm text-gray-200">
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold">✔</span> 6+ Years Production Unity Leadership
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold">✔</span> 2D &amp; 3D Combat, Physics &amp; Game Feel
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold">✔</span> Steam / Mobile / Console Release Prep
+                                    </li>
+                                    <li class="flex items-center gap-2.5 p-2.5 rounded-xl bg-cardDark border border-borderSubtle">
+                                        <span class="text-lootGold">✔</span> PR Code Reviews &amp; Team Mentorship
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-3 flex items-center justify-between font-mono text-xs text-gray-400">
+                                <span>Click anywhere to flip back</span>
+                                <span class="text-lootGold">↺ Flip</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- 3. INTERACTIVE "SPAGHETTI VS. SMOOTH" ARCHITECTURE SLIDER             -->
+        <!-- ===================================================================== -->
+        <section id="architecture" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-borderSubtle">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cardDark border border-borderSubtle font-mono text-xs text-yashEmerald">
+                    <span>⚡ VISUAL ARCHITECTURE DIFF</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                    See the Difference
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg">
+                    Drag the slider to untangle the architecture—or peek at the actual C# code if that's your jam.
+                </p>
+            </div>
+
+            <!-- Interactive Split Comparison Container -->
+            <div class="max-w-5xl mx-auto">
+                <div id="arch-slider-container" class="relative h-[380px] sm:h-[420px] rounded-3xl border-2 border-borderSubtle overflow-hidden select-none shadow-2xl bg-obsidian cursor-ew-resize">
+                    
+                    <!-- LAYER 1 (BOTTOM FULL WIDTH): THE YASH ARCHITECTURE (SMOOTH) -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-obsidian via-cardDark to-emerald-950/30 p-6 sm:p-10 flex flex-col justify-between">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3.5 py-1.5 rounded-full bg-yashEmerald/15 border border-yashEmerald/40 font-mono text-xs font-bold text-yashEmerald">
+                                ⚡ THE YASH ARCHITECTURE (SHIP-READY)
+                            </span>
+                            <span class="font-mono text-xs text-yashCyan hidden sm:inline">
+                                0.4ms CPU • 0B GC Alloc • Deterministic
+                            </span>
+                        </div>
+
+                        <!-- Clean Modular Data Pipeline Diagram -->
+                        <div class="my-auto relative py-6">
+                            <!-- Connecting Animated SVG Stream -->
+                            <svg class="w-full h-36 sm:h-44" viewBox="0 0 800 160" fill="none">
+                                <!-- Clean Pipeline Paths -->
+                                <path d="M 130 80 L 290 80" stroke="#1E293B" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M 130 80 L 290 80" stroke="#00E676" stroke-width="3" class="animate-data-flow"/>
+                                
+                                <path d="M 410 80 L 550 80" stroke="#1E293B" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M 410 80 L 550 80" stroke="#00D2FF" stroke-width="3" class="animate-data-flow"/>
+
+                                <path d="M 650 80 L 710 80" stroke="#1E293B" stroke-width="6" stroke-linecap="round"/>
+                                <path d="M 650 80 L 710 80" stroke="#00E676" stroke-width="3" class="animate-data-flow"/>
+
+                                <!-- Node 1: Input / Intent -->
+                                <g transform="translate(20, 40)">
+                                    <rect width="130" height="80" rx="16" fill="#12151E" stroke="#00E676" stroke-width="2"/>
+                                    <text x="65" y="36" text-anchor="middle" fill="#FFFFFF" font-family="Space Grotesk" font-weight="700" font-size="14">Input &amp; AI</text>
+                                    <text x="65" y="58" text-anchor="middle" fill="#00E676" font-family="JetBrains Mono" font-size="11">SO Event Bus</text>
+                                </g>
+
+                                <!-- Node 2: ECS Job System -->
+                                <g transform="translate(260, 32)">
+                                    <rect width="165" height="96" rx="18" fill="#12151E" stroke="#00D2FF" stroke-width="2.5"/>
+                                    <text x="82" y="38" text-anchor="middle" fill="#FFFFFF" font-family="Space Grotesk" font-weight="700" font-size="15">C# Job System</text>
+                                    <text x="82" y="60" text-anchor="middle" fill="#00D2FF" font-family="JetBrains Mono" font-size="11">IJobParallelFor</text>
+                                    <text x="82" y="78" text-anchor="middle" fill="#9CA3AF" font-family="JetBrains Mono" font-size="10">All Worker Cores</text>
+                                </g>
+
+                                <!-- Node 3: Burst Transform -->
+                                <g transform="translate(505, 40)">
+                                    <rect width="150" height="80" rx="16" fill="#12151E" stroke="#00E676" stroke-width="2"/>
+                                    <text x="75" y="36" text-anchor="middle" fill="#FFFFFF" font-family="Space Grotesk" font-weight="700" font-size="14">[BurstCompile]</text>
+                                    <text x="75" y="58" text-anchor="middle" fill="#00E676" font-family="JetBrains Mono" font-size="11">SIMD Native Math</text>
+                                </g>
+
+                                <!-- Node 4: 120 FPS Render -->
+                                <g transform="translate(690, 40)">
+                                    <rect width="95" height="80" rx="16" fill="#00E676" fill-opacity="0.15" stroke="#00E676" stroke-width="2"/>
+                                    <text x="47" y="38" text-anchor="middle" fill="#00E676" font-family="Space Grotesk" font-weight="700" font-size="15">120 FPS</text>
+                                    <text x="47" y="58" text-anchor="middle" fill="#FFFFFF" font-family="JetBrains Mono" font-size="11">0B Alloc</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="flex items-center justify-between font-mono text-xs text-gray-400">
+                            <span>✔ Decoupled Systems</span>
+                            <span>✔ Cache-Friendly Contiguous Arrays</span>
+                            <span class="text-yashEmerald">✔ Easy for Designers to Extend</span>
+                        </div>
+                    </div>
+
+                    <!-- LAYER 2 (CLIPPED LEFT OVERLAY): THE SPAGHETTI PROTOTYPE -->
+                    <div id="spaghetti-overlay" class="absolute inset-0 bg-gradient-to-br from-[#1A0D12] via-[#140F16] to-obsidian p-6 sm:p-10 flex flex-col justify-between" style="clip-path: polygon(0 0, 52% 0, 52% 100%, 0 100%);">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3.5 py-1.5 rounded-full bg-lagRed/20 border border-lagRed/50 font-mono text-xs font-bold text-lagRed">
+                                🍝 THE SPAGHETTI PROTOTYPE (BEFORE)
+                            </span>
+                            <span class="font-mono text-xs text-lagAmber hidden sm:inline">
+                                38.4ms CPU • GC Spikes • Frame Drops
+                            </span>
+                        </div>
+
+                        <!-- Tangled Red Dependency Web Diagram -->
+                        <div class="my-auto relative py-6">
+                            <svg class="w-full h-36 sm:h-44" viewBox="0 0 800 160" fill="none">
+                                <!-- Messy Tangled Lines -->
+                                <path d="M 120 45 Q 310 150 420 40 T 680 110" stroke="#FF4757" stroke-width="2.5" stroke-opacity="0.7"/>
+                                <path d="M 140 120 Q 280 10 530 125 T 710 45" stroke="#FFA502" stroke-width="2" stroke-dasharray="5 5"/>
+                                <path d="M 90 80 L 670 80" stroke="#FF4757" stroke-width="2" stroke-opacity="0.5"/>
+                                <path d="M 270 35 L 550 130 M 270 130 L 550 35" stroke="#FF4757" stroke-width="2.5"/>
+
+                                <!-- Chaotic Nodes -->
+                                <g transform="translate(30, 20)" class="spaghetti-jitter">
+                                    <rect width="160" height="52" rx="10" fill="#231217" stroke="#FF4757" stroke-width="2"/>
+                                    <text x="80" y="24" text-anchor="middle" fill="#FF4757" font-family="JetBrains Mono" font-weight="700" font-size="12">Update() x 5,000</text>
+                                    <text x="80" y="41" text-anchor="middle" fill="#FCA5A5" font-family="JetBrains Mono" font-size="10">FindObjectOfType()</text>
+                                </g>
+
+                                <g transform="translate(230, 95)" class="spaghetti-jitter">
+                                    <rect width="175" height="54" rx="10" fill="#231217" stroke="#FFA502" stroke-width="2"/>
+                                    <text x="87" y="24" text-anchor="middle" fill="#FFA502" font-family="JetBrains Mono" font-weight="700" font-size="12">GC.Alloc Spike! 🔥</text>
+                                    <text x="87" y="41" text-anchor="middle" fill="#FDE68A" font-family="JetBrains Mono" font-size="10">LINQ .ToList() in Loop</text>
+                                </g>
+
+                                <g transform="translate(450, 18)" class="spaghetti-jitter">
+                                    <rect width="190" height="54" rx="10" fill="#231217" stroke="#FF4757" stroke-width="2"/>
+                                    <text x="95" y="24" text-anchor="middle" fill="#FF4757" font-family="JetBrains Mono" font-weight="700" font-size="12">NullReferenceException</text>
+                                    <text x="95" y="41" text-anchor="middle" fill="#FCA5A5" font-family="JetBrains Mono" font-size="10">Singleton Race Condition</text>
+                                </g>
+
+                                <g transform="translate(590, 95)" class="spaghetti-jitter">
+                                    <rect width="175" height="52" rx="10" fill="#231217" stroke="#FF4757" stroke-width="2"/>
+                                    <text x="87" y="24" text-anchor="middle" fill="#FF4757" font-family="JetBrains Mono" font-weight="700" font-size="12">Tightly Coupled UI</text>
+                                    <text x="87" y="41" text-anchor="middle" fill="#FCA5A5" font-family="JetBrains Mono" font-size="10">Hardcoded Scene Refs</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="flex items-center justify-between font-mono text-xs text-lagRed/90">
+                            <span>✖ Frame Stutters Every 3s</span>
+                            <span>✖ Breaking One Script Breaks All</span>
+                            <span>✖ Hard to Debug</span>
+                        </div>
+                    </div>
+
+                    <!-- DRAGGABLE VERTICAL DIVIDER HANDLE -->
+                    <div id="arch-slider-handle" class="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_20px_#ffffff] z-20 pointer-events-none" style="left: 52%;">
+                        <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 rounded-2xl bg-white text-obsidian font-mono font-bold text-xs flex items-center justify-center shadow-2xl border-4 border-obsidian">
+                            &lt;--&gt;
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Slider Bar & Optional Engineer C# Code Modal Trigger -->
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
+                    <div class="font-mono text-xs text-gray-400 flex items-center gap-2">
+                        <span>💡 Tip: Drag the handle left to untangle the whole pipeline!</span>
+                    </div>
+
+                    <button type="button" onclick="openCodeDiffModal()" class="juicy-btn px-5 py-3 rounded-2xl bg-cardDark hover:bg-cardHover text-yashCyan border border-borderSubtle hover:border-yashCyan font-mono text-xs sm:text-sm font-semibold flex items-center gap-2.5 shadow-lg">
+                        <span>👨‍💻 Peek at the Actual C# Diff</span>
+                        <span class="px-2 py-0.5 rounded bg-yashCyan/15 text-[11px]">Optional</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- 4. SHIPPED & IN-FLIGHT WORK (CLEAN, SCANNABLE SHOWCASE)               -->
+        <!-- ===================================================================== -->
+        <section id="games" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-borderSubtle">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cardDark border border-borderSubtle font-mono text-xs text-lootGold mb-3">
+                        <span>🏆 PROVEN IN PRODUCTION</span>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                        Battle-Tested in Production
+                    </h2>
+                </div>
+                <p class="text-gray-400 text-base max-w-md">
+                    Real commercial launches and deep architectural rescues across PC and mobile.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Game 1: Stranglehold of the Elite -->
+                <article class="rounded-3xl bg-cardDark border border-borderSubtle hover:border-yashEmerald/60 p-7 flex flex-col justify-between transition-all shadow-xl group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-6">
+                            <span class="px-3 py-1 rounded-full bg-yashEmerald/15 border border-yashEmerald/40 font-mono text-xs font-semibold text-yashEmerald">
+                                Shipped on Steam
+                            </span>
+                            <span class="font-mono text-xs text-gray-400">PC • Full-Cycle</span>
+                        </div>
+
+                        <h3 class="font-display text-2xl font-bold text-white group-hover:text-yashEmerald transition-colors mb-3">
+                            Stranglehold of the Elite
+                        </h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+                            Full-cycle commercial release. Custom gameplay systems, combat responsiveness, AI state machines, and Steam release pipeline from prototype to launch.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-3 font-mono text-xs mb-6">
+                            <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
+                                <div class="text-gray-400 text-[10px]">FRAME PACING</div>
+                                <div class="text-yashEmerald font-bold text-sm mt-0.5">Locked 120 FPS</div>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
+                                <div class="text-gray-400 text-[10px]">LAUNCH STABILITY</div>
+                                <div class="text-white font-bold text-sm mt-0.5">99.94% Crash-Free</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="openProjectModal('stranglehold')" class="juicy-btn w-full py-3.5 px-4 rounded-2xl bg-obsidian hover:bg-yashEmerald hover:text-obsidian text-yashEmerald border border-yashEmerald/30 font-mono text-xs font-bold transition-colors flex items-center justify-center gap-2">
+                        <span>View Breakdown</span>
+                        <span>→</span>
+                    </button>
+                </article>
+
+                <!-- Game 2: Little Conspiracies -->
+                <article class="rounded-3xl bg-cardDark border border-borderSubtle hover:border-yashCyan/60 p-7 flex flex-col justify-between transition-all shadow-xl group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-6">
+                            <span class="px-3 py-1 rounded-full bg-yashCyan/15 border border-yashCyan/40 font-mono text-xs font-semibold text-yashCyan">
+                                Indie Production
+                            </span>
+                            <span class="font-mono text-xs text-gray-400">Systems &amp; Tooling</span>
+                        </div>
+
+                        <h3 class="font-display text-2xl font-bold text-white group-hover:text-yashCyan transition-colors mb-3">
+                            Little Conspiracies
+                        </h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+                            Modular narrative &amp; interaction architecture, custom Unity Editor workflow tools that sped up level/scenario creation by 3x, and crisp game-feel polish.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-3 font-mono text-xs mb-6">
+                            <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
+                                <div class="text-gray-400 text-[10px]">TEAM VELOCITY</div>
+                                <div class="text-yashCyan font-bold text-sm mt-0.5">3x Faster Tooling</div>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
+                                <div class="text-gray-400 text-[10px]">ARCHITECTURE</div>
+                                <div class="text-white font-bold text-sm mt-0.5">SO State Graph</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="openProjectModal('conspiracies')" class="juicy-btn w-full py-3.5 px-4 rounded-2xl bg-obsidian hover:bg-yashCyan hover:text-obsidian text-yashCyan border border-yashCyan/30 font-mono text-xs font-bold transition-colors flex items-center justify-center gap-2">
+                        <span>View Breakdown</span>
+                        <span>→</span>
+                    </button>
+                </article>
+
+                <!-- Game 3: High-Density Mobile Action Client -->
+                <article class="rounded-3xl bg-cardDark border border-borderSubtle hover:border-lagAmber/60 p-7 flex flex-col justify-between transition-all shadow-xl group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-6">
+                            <span class="px-3 py-1 rounded-full bg-lagAmber/15 border border-lagAmber/40 font-mono text-xs font-semibold text-lagAmber">
+                                Performance Rescue
+                            </span>
+                            <span class="font-mono text-xs text-gray-400">iOS &amp; Android • DOTS</span>
+                        </div>
+
+                        <h3 class="font-display text-2xl font-bold text-white group-hover:text-lagAmber transition-colors mb-3">
+                            High-Density Mobile Action Client
+                        </h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+                            Transformed a stuttering 28 FPS mobile build with 4,000+ active entities into a locked 60/120 FPS experience using DOTS, Burst, and zero-allocation pooling.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-3 font-mono text-xs mb-6">
+                            <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
+                                <div class="text-gray-400 text-[10px]">BEFORE → AFTER</div>
+                                <div class="text-yashEmerald font-bold text-sm mt-0.5">28 FPS → 120 FPS</div>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
+                                <div class="text-gray-400 text-[10px]">HOT-PATH GC</div>
+                                <div class="text-yashCyan font-bold text-sm mt-0.5">0 Bytes / Frame</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="openProjectModal('mobile-rescue')" class="juicy-btn w-full py-3.5 px-4 rounded-2xl bg-obsidian hover:bg-lagAmber hover:text-obsidian text-lagAmber border border-lagAmber/30 font-mono text-xs font-bold transition-colors flex items-center justify-center gap-2">
+                        <span>View Breakdown</span>
+                        <span>→</span>
+                    </button>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- 5. "MAD-LIBS" 3-CLICK DM BUILDER (ZERO-PAPERWORK INQUIRY)             -->
+        <!-- ===================================================================== -->
+        <section id="say-hi" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-borderSubtle">
+            
+            <div class="rounded-3xl bg-cardDark border-2 border-borderSubtle p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                
+                <!-- Top Status & Header -->
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-yashEmerald/15 border border-yashEmerald/40 font-mono text-xs text-yashEmerald font-semibold">
+                        <span>🟢 Inquiries: DMs Open — Typical reply under 24h</span>
+                    </div>
+                    <span class="font-mono text-xs text-gray-400">Zero paperwork • 3 clicks</span>
+                </div>
+
+                <div class="space-y-3 mb-8">
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                        Ready to Level Up Your Build?
+                    </h2>
+                    <p class="text-gray-400 text-base sm:text-lg">
+                        No long forms. Click the highlighted words to cycle through options, grab your note, and drop it in my DMs.
+                    </p>
+                </div>
+
+                <!-- Quick 1-Click Presets -->
+                <div class="mb-6">
+                    <div class="font-mono text-xs text-gray-400 uppercase tracking-wider mb-2.5">Quick Presets:</div>
+                    <div class="flex flex-wrap gap-2.5 font-mono text-xs">
+                        <button type="button" onclick="applyMadLibPreset(2, 0, 0)" class="juicy-btn px-3.5 py-2 rounded-xl bg-obsidian hover:bg-cardHover border border-borderSubtle hover:border-lagAmber text-gray-200 flex items-center gap-1.5">
+                            <span>🔥 Emergency FPS Rescue</span>
+                        </button>
+                        <button type="button" onclick="applyMadLibPreset(1, 1, 1)" class="juicy-btn px-3.5 py-2 rounded-xl bg-obsidian hover:bg-cardHover border border-borderSubtle hover:border-yashEmerald text-gray-200 flex items-center gap-1.5">
+                            <span>🏗️ New Game Architecture</span>
+                        </button>
+                        <button type="button" onclick="applyMadLibPreset(3, 2, 2)" class="juicy-btn px-3.5 py-2 rounded-xl bg-obsidian hover:bg-cardHover border border-borderSubtle hover:border-yashCyan text-gray-200 flex items-center gap-1.5">
+                            <span>🤝 Full Production Partner</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Mad-Libs Sentence Box -->
+                <div class="p-6 sm:p-9 rounded-2xl bg-obsidian border border-borderSubtle mb-8">
+                    <p class="font-display text-xl sm:text-3xl leading-relaxed sm:leading-relaxed text-gray-200 font-medium select-none">
+                        "Hey Yash! 👋 We’re building a 
+                        <button type="button" id="madlib-project" onclick="cycleMadLib('project')" class="juicy-btn inline-flex items-center gap-1.5 px-3.5 py-1 my-1 rounded-xl bg-yashEmerald/15 border-2 border-yashEmerald text-yashEmerald font-mono text-lg sm:text-2xl font-bold">
+                            <span id="madlib-project-val">3D Game</span>
+                            <span class="text-xs opacity-75">↻</span>
+                        </button>
+                        and we’d love your help with 
+                        <button type="button" id="madlib-help" onclick="cycleMadLib('help')" class="juicy-btn inline-flex items-center gap-1.5 px-3.5 py-1 my-1 rounded-xl bg-yashCyan/15 border-2 border-yashCyan text-yashCyan font-mono text-lg sm:text-2xl font-bold">
+                            <span id="madlib-help-val">Fixing FPS &amp; Lag</span>
+                            <span class="text-xs opacity-75">↻</span>
+                        </button>
+                        starting 
+                        <button type="button" id="madlib-time" onclick="cycleMadLib('time')" class="juicy-btn inline-flex items-center gap-1.5 px-3.5 py-1 my-1 rounded-xl bg-lootGold/15 border-2 border-lootGold text-lootGold font-mono text-lg sm:text-2xl font-bold">
+                            <span id="madlib-time-val">ASAP</span>
+                            <span class="text-xs opacity-75">↻</span>
+                        </button>."
+                    </p>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                    <button id="copy-madlib-btn" type="button" onclick="copyMadLibMessage()" class="juicy-btn flex-1 py-4 px-7 rounded-2xl bg-yashEmerald hover:bg-emerald-400 text-obsidian font-display font-bold text-base sm:text-lg glow-emerald flex items-center justify-center gap-3">
+                        <span>📋 Copy Message &amp; Ready for DMs</span>
+                    </button>
+
+                    <!-- Direct DM Links -->
+                    <div class="flex items-center justify-center gap-2 font-mono text-xs">
+                        <button type="button" onclick="copyMadLibMessage('LinkedIn')" class="juicy-btn px-4 py-4 rounded-2xl bg-obsidian hover:bg-cardHover border border-borderSubtle text-gray-200 hover:text-yashCyan">
+                            LinkedIn ↗
+                        </button>
+                        <button type="button" onclick="copyMadLibMessage('X / Twitter')" class="juicy-btn px-4 py-4 rounded-2xl bg-obsidian hover:bg-cardHover border border-borderSubtle text-gray-200 hover:text-yashEmerald">
+                            X / Twitter ↗
+                        </button>
+                        <button type="button" onclick="copyMadLibMessage('Discord')" class="juicy-btn px-4 py-4 rounded-2xl bg-obsidian hover:bg-cardHover border border-borderSubtle text-gray-200 hover:text-lootGold">
+                            Discord ↗
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Copy Confirmation Banner -->
+                <div id="madlib-confirm" class="hidden mt-5 p-4 rounded-2xl bg-yashEmerald/15 border border-yashEmerald/50 font-mono text-xs sm:text-sm text-yashEmerald text-center">
+                    ✅ Copied to Clipboard! Drop it in Yash's DMs on LinkedIn / X / Discord.
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-borderSubtle bg-obsidian py-12 font-mono text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cardDark border border-borderSubtle flex items-center justify-center text-white font-bold">
+                    YV
+                </div>
+                <span>Yash Vakil — Lead Unity Developer &amp; Studio Partner | C#, DOTS, Profiling</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-yashEmerald">🟢 Inquiries: DMs Open</span>
+                <span>© 2026 Yash Vakil</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- OPTIONAL C# CODE DIFF MODAL (FOR ENGINEERS)                           -->
+    <!-- ===================================================================== -->
+    <div id="code-diff-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md">
+        <div class="bg-cardDark border-2 border-borderSubtle rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl">
+            <div class="bg-obsidian px-6 py-4 border-b border-borderSubtle flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="text-lg">👨‍💻</span>
+                    <span class="font-mono text-xs sm:text-sm font-bold text-white">C# ARCHITECTURE DIFF // MONOBEHAVIOUR VS. DOTS BURST</span>
+                </div>
+                <button type="button" onclick="closeCodeDiffModal()" class="px-3 py-1 rounded-lg bg-cardDark border border-borderSubtle text-gray-400 hover:text-white font-mono text-xs">
+                    [ESC / Close ✕]
+                </button>
+            </div>
+
+            <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-5 max-h-[80vh] overflow-y-auto">
+                <!-- Left: Legacy Spaghetti -->
+                <div class="rounded-2xl bg-obsidian border border-lagRed/40 p-4">
+                    <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                        <span class="text-lagRed font-bold">❌ Legacy MonoBehaviour (28.4ms)</span>
+                        <span class="px-2 py-0.5 rounded bg-lagRed/15 text-lagRed">42KB GC/f</span>
+                    </div>
+                    <pre class="font-mono text-[11px] sm:text-xs leading-relaxed text-gray-300 overflow-x-auto"><code><span class="code-kw">public class</span> <span class="code-tp">SwarmEnemy_Legacy</span> : <span class="code-tp">MonoBehaviour</span>
+{
+    <span class="code-kw">void</span> <span class="code-fn">Update</span>()
+    {
+        <span class="code-cm">// ❌ Slow scene search + LINQ heap allocation</span>
+        <span class="code-kw">var</span> player = <span class="code-tp">FindObjectOfType</span>&lt;<span class="code-tp">Player</span>&gt;();
+        <span class="code-kw">var</span> hits = <span class="code-tp">Physics</span>.<span class="code-fn">OverlapSphere</span>(transform.position, <span class="code-num">8f</span>)
+                          .<span class="code-fn">ToList</span>(); <span class="code-cm">// ❌ GC Spike!</span>
+
+        <span class="code-cm">// ❌ Unbatched main-thread transform marshaling</span>
+        <span class="code-tp">Vector3</span> dir = (player.transform.position - transform.position).normalized;
+        transform.position += dir * (<span class="code-num">6f</span> * <span class="code-tp">Time</span>.deltaTime);
+    }
+}</code></pre>
+                </div>
+
+                <!-- Right: Yash's Burst Job Standard -->
+                <div class="rounded-2xl bg-obsidian border border-yashEmerald/40 p-4">
+                    <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                        <span class="text-yashEmerald font-bold">✅ Yash's Burst + Jobs Standard (0.4ms)</span>
+                        <span class="px-2 py-0.5 rounded bg-yashEmerald/15 text-yashEmerald">0 Bytes GC</span>
+                    </div>
+                    <pre class="font-mono text-[11px] sm:text-xs leading-relaxed text-gray-300 overflow-x-auto"><code>[<span class="code-tp">BurstCompile</span>(FloatMode = <span class="code-tp">FloatMode</span>.Fast)]
+<span class="code-kw">public struct</span> <span class="code-tp">SwarmSteerJob</span> : <span class="code-tp">IJobParallelForTransform</span>
+{
+    [<span class="code-tp">ReadOnly</span>] <span class="code-kw">public</span> <span class="code-tp">float3</span> TargetPos;
+    [<span class="code-tp">ReadOnly</span>] <span class="code-kw">public</span> <span class="code-tp">float</span> DeltaTime;
+
+    <span class="code-kw">public void</span> <span class="code-fn">Execute</span>(<span class="code-kw">int</span> index, <span class="code-tp">TransformAccess</span> tx)
+    {
+        <span class="code-cm">// ✅ Multi-threaded SIMD math &amp; zero GC allocation</span>
+        <span class="code-tp">float3</span> pos = tx.position;
+        <span class="code-tp">float3</span> dir = <span class="code-tp">math</span>.<span class="code-fn">normalizesafe</span>(TargetPos - pos);
+        tx.position = pos + dir * (<span class="code-num">6f</span> * DeltaTime);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="px-6 py-4 bg-obsidian border-t border-borderSubtle flex items-center justify-between">
+                <span class="font-mono text-xs text-gray-400">Result: 64%+ Frame-time reduction on mid-tier mobile &amp; PC</span>
+                <button type="button" onclick="closeCodeDiffModal()" class="juicy-btn px-5 py-2 rounded-xl bg-yashEmerald text-obsidian font-mono font-bold text-xs">
+                    Got It 👍
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- PROJECT BREAKDOWN MODAL                                               -->
+    <!-- ===================================================================== -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md">
+        <div class="bg-cardDark border-2 border-borderSubtle rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl">
+            <div class="bg-obsidian px-6 py-4 border-b border-borderSubtle flex items-center justify-between">
+                <span id="pmodal-badge" class="font-mono text-xs text-yashEmerald font-bold">// CASE STUDY BREAKDOWN</span>
+                <button type="button" onclick="closeProjectModal()" class="px-3 py-1 rounded-lg bg-cardDark border border-borderSubtle text-gray-400 hover:text-white font-mono text-xs">
+                    [Close ✕]
+                </button>
+            </div>
+            <div class="p-6 sm:p-8 space-y-5">
+                <h3 id="pmodal-title" class="font-display text-2xl sm:text-3xl font-bold text-white"></h3>
+                <p id="pmodal-desc" class="text-gray-300 text-sm sm:text-base leading-relaxed"></p>
+                <div class="p-4 rounded-2xl bg-obsidian border border-borderSubtle space-y-2 font-mono text-xs">
+                    <div class="text-yashCyan font-bold">KEY DELIVERABLES &amp; WINS:</div>
+                    <ul id="pmodal-bullets" class="space-y-1.5 text-gray-300"></ul>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeProjectModal()" class="px-4 py-2.5 rounded-xl bg-obsidian border border-borderSubtle text-gray-300 font-mono text-xs">
+                        Close
+                    </button>
+                    <a href="#say-hi" onclick="closeProjectModal()" class="juicy-btn px-5 py-2.5 rounded-xl bg-yashEmerald text-obsidian font-display font-bold text-xs">
+                        Chat About a Similar Build →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 6. STEAM / CONSOLE-STYLE ACHIEVEMENT TOAST CONTAINER                  -->
+    <!-- ===================================================================== -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+    <!-- ===================================================================== -->
+    <!-- INTERACTIVE GAME-FEEL JAVASCRIPT ENGINE                               -->
+    <!-- ===================================================================== -->
+    <script>
+        // =====================================================================
+        // 1. ACHIEVEMENT / QUEST SYSTEM (4 QUESTS + PLATINUM)
+        // =====================================================================
+        const achievements = {
+            1: { unlocked: false, title: 'Silky Smooth 120 FPS', desc: 'Applied the Yash Fix in the Lag Buster Sandbox!' },
+            2: { unlocked: false, title: 'Under the Hood', desc: 'Flipped a Game Upgrade Card to inspect CTO stats!' },
+            3: { unlocked: false, title: 'Spaghetti Untangler', desc: 'Explored the Before/After Architecture diff!' },
+            4: { unlocked: false, title: 'Party Invite Sent!', desc: 'Customized & copied a DM invite for Yash!' }
+        };
+
+        const navAchBtn = document.getElementById('achievement-menu-btn');
+        const navAchDropdown = document.getElementById('achievement-dropdown');
+
+        navAchBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navAchDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', () => {
+            navAchDropdown.classList.add('hidden');
+        });
+        navAchDropdown.addEventListener('click', (e) => e.stopPropagation());
+
+        function unlockAchievement(id) {
+            if (!achievements[id] || achievements[id].unlocked) return;
+            achievements[id].unlocked = true;
+
+            // Update Checklist UI
+            const item = document.getElementById(`quest-item-${id}`);
+            if (item) {
+                item.className = 'flex items-center gap-2.5 p-2 rounded-lg bg-yashEmerald/15 border border-yashEmerald/30 text-white';
+                item.querySelector('.quest-icon').textContent = '🏆';
+            }
+
+            // Count total unlocked
+            const count = Object.values(achievements).filter(a => a.unlocked).length;
+            document.getElementById('nav-achievement-text').innerHTML = `<strong class="text-lootGold">${count}/4</strong> Quests`;
+            document.getElementById('dropdown-progress-badge').textContent = `${count} / 4 Unlocked`;
+
+            // Show Console Trophy Toast
+            showAchievementToast(achievements[id].title, achievements[id].desc, false);
+
+            // Check for Platinum (4/4)
+            if (count === 4) {
+                setTimeout(() => {
+                    showAchievementToast(
+                        '🌟 Platinum Unlocked: Master Explorer!',
+                        'You tested the whole build! Drop Yash a DM anytime.',
+                        true
+                    );
+                }, 1400);
+            }
+        }
+
+        function showAchievementToast(title, subtitle, isPlatinum) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto flex items-center gap-3.5 p-4 rounded-2xl border-2 shadow-2xl transition-all duration-500 transform translate-y-8 opacity-0 ${
+                isPlatinum
+                    ? 'bg-gradient-to-r from-obsidian via-cardDark to-amber-950/60 border-lootGold glow-gold'
+                    : 'bg-cardDark/95 backdrop-blur-md border-yashEmerald/70 glow-emerald'
+            }`;
+
+            toast.innerHTML = `
+                <div class="w-11 h-11 rounded-xl ${isPlatinum ? 'bg-lootGold/20 text-lootGold' : 'bg-yashEmerald/20 text-yashEmerald'} flex items-center justify-center text-2xl shrink-0">
+                    ${isPlatinum ? '👑' : '🏆'}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-mono text-[10px] uppercase tracking-wider ${isPlatinum ? 'text-lootGold' : 'text-yashEmerald'} font-bold">
+                        ${isPlatinum ? 'PLATINUM TROPHY UNLOCKED' : 'ACHIEVEMENT UNLOCKED'}
+                    </div>
+                    <div class="font-display font-bold text-sm text-white truncate">${title}</div>
+                    <div class="text-xs text-gray-300 truncate">${subtitle}</div>
+                </div>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate in
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-8', 'opacity-0');
+            });
+
+            // Auto dismiss
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 500);
+            }, 4200);
+        }
+
+        // =====================================================================
+        // 2. HERO TOY: PLAYABLE "LAG BUSTER" PHYSICS SANDBOX
+        // =====================================================================
+        const sbCanvas = document.getElementById('lag-buster-canvas');
+        const sbCtx = sbCanvas.getContext('2d');
+        let isOptimized = false;
+        let boids = [];
+        let burstParticles = [];
+        const mouse = { x: -999, y: -999, active: false };
+
+        function resizeSandboxCanvas() {
+            const rect = sbCanvas.parentElement.getBoundingClientRect();
+            sbCanvas.width = rect.width;
+            sbCanvas.height = rect.height;
+        }
+
+        function createBoids(count) {
+            const w = sbCanvas.width || 500;
+            const h = sbCanvas.height || 340;
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 1.5 + Math.random() * 2.2;
+                boids.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    size: 3.5 + Math.random() * 2.5,
+                    hueOffset: Math.random() * 40
+                });
+            }
+            document.getElementById('entity-counter-badge').textContent = `Entities: ${boids.length}`;
+        }
+
+        function spawnCelebrationBurst(cx, cy) {
+            for (let i = 0; i < 55; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 2 + Math.random() * 7;
+                burstParticles.push({
+                    x: cx,
+                    y: cy,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    life: 1.0,
+                    color: i % 2 === 0 ? '#00E676' : '#00D2FF'
+                });
+            }
+        }
+
+        sbCanvas.addEventListener('mousemove', (e) => {
+            const rect = sbCanvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            mouse.active = true;
+        });
+        sbCanvas.addEventListener('mouseleave', () => {
+            mouse.active = false;
+        });
+        sbCanvas.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                const rect = sbCanvas.getBoundingClientRect();
+                mouse.x = e.touches[0].clientX - rect.left;
+                mouse.y = e.touches[0].clientY - rect.top;
+                mouse.active = true;
+            }
+        }, { passive: true });
+
+        function toggleYashFix() {
+            isOptimized = !isOptimized;
+            const win = document.getElementById('sandbox-window');
+            const title = document.getElementById('sandbox-build-title');
+            const hud = document.getElementById('sandbox-hud-pill');
+            const fixBtn = document.getElementById('yash-fix-btn');
+            const fixLabel = document.getElementById('yash-fix-label');
+            const popup = document.getElementById('rpg-buff-popup');
+
+            if (isOptimized) {
+                win.className = 'rounded-3xl bg-cardDark border-2 border-yashEmerald glow-emerald overflow-hidden transition-all duration-500';
+                title.textContent = '🟢 YASH_DOTS_OPTIMIZED.exe';
+                title.className = 'ml-2 font-mono text-xs font-bold text-yashEmerald tracking-wider';
+                hud.className = 'px-3 py-1 rounded-full bg-yashEmerald/15 border border-yashEmerald/40 font-mono text-xs font-semibold text-yashEmerald flex items-center gap-2';
+                document.getElementById('hud-fps').textContent = '120 FPS';
+                document.getElementById('hud-ms').textContent = '8.3ms';
+                document.getElementById('hud-temp').textContent = '❄️ Cool & Locked';
+
+                fixBtn.className = 'juicy-btn flex-1 py-3.5 px-6 rounded-2xl bg-obsidian text-yashEmerald border-2 border-yashEmerald font-display font-bold text-base flex items-center justify-center gap-2.5';
+                fixLabel.textContent = 'Yash Fix Active (120 FPS) — Click to Revert';
+
+                spawnCelebrationBurst(sbCanvas.width / 2, sbCanvas.height / 2);
+
+                // Show RPG Buff Popup
+                popup.classList.remove('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    popup.classList.add('opacity-0', 'translate-y-4');
+                }, 2200);
+
+                unlockAchievement(1);
+            } else {
+                win.className = 'rounded-3xl bg-cardDark border-2 border-lagRed/60 glow-red overflow-hidden transition-all duration-500';
+                title.textContent = '🔴 SPAGHETTI_BUILD.exe';
+                title.className = 'ml-2 font-mono text-xs font-bold text-lagRed tracking-wider';
+                hud.className = 'px-3 py-1 rounded-full bg-lagRed/15 border border-lagRed/40 font-mono text-xs font-semibold text-lagRed flex items-center gap-2';
+                document.getElementById('hud-fps').textContent = '24 FPS';
+                document.getElementById('hud-ms').textContent = '41.6ms';
+                document.getElementById('hud-temp').textContent = '🔥 Phone Overheating';
+
+                fixBtn.className = 'juicy-btn flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-yashEmerald to-yashCyan text-obsidian font-display font-bold text-base shadow-lg shadow-yashEmerald/20 flex items-center justify-center gap-2.5';
+                fixLabel.textContent = 'Apply the Yash Fix';
+            }
+        }
+
+        document.getElementById('yash-fix-btn').addEventListener('click', toggleYashFix);
+
+        document.getElementById('spawn-entities-btn').addEventListener('click', () => {
+            if (boids.length >= 1600) {
+                boids.splice(100); // Reset back to 100 if capped
+            } else {
+                createBoids(500);
+            }
+            document.getElementById('entity-counter-badge').textContent = `Entities: ${boids.length}`;
+            spawnCelebrationBurst(sbCanvas.width / 2, sbCanvas.height / 2);
+        });
+
+        function triggerLagBusterDemo() {
+            document.getElementById('sandbox-window').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (!isOptimized) {
+                setTimeout(toggleYashFix, 450);
+            }
+        }
+
+        let frameCounter = 0;
+        function animateSandbox() {
+            frameCounter++;
+            const w = sbCanvas.width;
+            const h = sbCanvas.height;
+
+            // In "Spaghetti Build" mode, intentionally skip render frames to simulate 20-24 FPS stutter & hitching!
+            const shouldSimulateHitch = !isOptimized && (frameCounter % 3 !== 0 || (frameCounter % 55 < 8));
+
+            if (!shouldSimulateHitch) {
+                // Trail fade
+                sbCtx.fillStyle = isOptimized ? 'rgba(9, 10, 15, 0.28)' : 'rgba(9, 10, 15, 0.65)';
+                sbCtx.fillRect(0, 0, w, h);
+
+                const centerX = w / 2;
+                const centerY = h / 2;
+
+                for (let i = 0; i < boids.length; i++) {
+                    const b = boids[i];
+
+                    if (isOptimized) {
+                        // Smooth orbital vortex flow + mouse interaction
+                        const dx = centerX - b.x;
+                        const dy = centerY - b.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                        // Gentle orbital pull
+                        b.vx += (dx / dist) * 0.05 - (dy / dist) * 0.08;
+                        b.vy += (dy / dist) * 0.05 + (dx / dist) * 0.08;
+
+                        // Speed normalization
+                        const speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy) || 1;
+                        const targetSpeed = 3.2;
+                        b.vx = (b.vx / speed) * targetSpeed;
+                        b.vy = (b.vy / speed) * targetSpeed;
+                    } else {
+                        // Erratic jittery movement in Spaghetti mode
+                        b.vx += (Math.random() - 0.5) * 1.4;
+                        b.vy += (Math.random() - 0.5) * 1.4;
+                        b.vx = Math.max(-5, Math.min(5, b.vx));
+                        b.vy = Math.max(-5, Math.min(5, b.vy));
+                    }
+
+                    // Cursor repulsion
+                    if (mouse.active) {
+                        const mx = b.x - mouse.x;
+                        const my = b.y - mouse.y;
+                        const mDistSq = mx * mx + my * my;
+                        if (mDistSq < 11000 && mDistSq > 1) {
+                            const mDist = Math.sqrt(mDistSq);
+                            b.vx += (mx / mDist) * 2.8;
+                            b.vy += (my / mDist) * 2.8;
+                        }
+                    }
+
+                    b.x += b.x + b.vx < 0 || b.x + b.vx > w ? (b.vx *= -1) : b.vx;
+                    b.y += b.y + b.vy < 0 || b.y + b.vy > h ? (b.vy *= -1) : b.vy;
+
+                    // Draw entity
+                    sbCtx.beginPath();
+                    sbCtx.arc(b.x, b.y, isOptimized ? b.size : b.size + 0.5, 0, Math.PI * 2);
+                    sbCtx.fillStyle = isOptimized
+                        ? (i % 2 === 0 ? '#00E676' : '#00D2FF')
+                        : (i % 3 === 0 ? '#FFA502' : '#FF4757');
+                    sbCtx.fill();
+                }
+
+                // Draw Cursor Ring
+                if (mouse.active) {
+                    sbCtx.beginPath();
+                    sbCtx.arc(mouse.x, mouse.y, 42, 0, Math.PI * 2);
+                    sbCtx.strokeStyle = isOptimized ? 'rgba(0, 230, 118, 0.45)' : 'rgba(255, 71, 87, 0.45)';
+                    sbCtx.lineWidth = 2;
+                    sbCtx.stroke();
+                }
+            }
+
+            // Always update celebration burst particles smoothly
+            for (let i = burstParticles.length - 1; i >= 0; i--) {
+                const p = burstParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.025;
+                if (p.life <= 0) {
+                    burstParticles.splice(i, 1);
+                } else {
+                    sbCtx.fillStyle = p.color;
+                    sbCtx.globalAlpha = p.life;
+                    sbCtx.beginPath();
+                    sbCtx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
+                    sbCtx.fill();
+                    sbCtx.globalAlpha = 1.0;
+                }
+            }
+
+            requestAnimationFrame(animateSandbox);
+        }
+
+        // =====================================================================
+        // 3. 3D TILT & FLIP UPGRADE CARDS
+        // =====================================================================
+        function flipUpgradeCard(cardContainer) {
+            const inner = cardContainer.querySelector('.flip-card-inner');
+            inner.classList.toggle('is-flipped');
+            unlockAchievement(2);
+        }
+
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateY = ((x / rect.width) - 0.5) * 10;
+                const rotateX = ((y / rect.height) - 0.5) * -10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+
+        // =====================================================================
+        // 4. INTERACTIVE "SPAGHETTI VS. SMOOTH" ARCHITECTURE SLIDER
+        // =====================================================================
+        const sliderContainer = document.getElementById('arch-slider-container');
+        const spaghettiOverlay = document.getElementById('spaghetti-overlay');
+        const sliderHandle = document.getElementById('arch-slider-handle');
+        let isDraggingSlider = false;
+
+        function updateArchSlider(clientX) {
+            const rect = sliderContainer.getBoundingClientRect();
+            let pct = ((clientX - rect.left) / rect.width) * 100;
+            pct = Math.max(4, Math.min(96, pct));
+            spaghettiOverlay.style.clipPath = `polygon(0 0, ${pct}% 0, ${pct}% 100%, 0 100%)`;
+            sliderHandle.style.left = `${pct}%`;
+            unlockAchievement(3);
+        }
+
+        sliderContainer.addEventListener('mousedown', (e) => {
+            isDraggingSlider = true;
+            updateArchSlider(e.clientX);
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (isDraggingSlider) updateArchSlider(e.clientX);
+        });
+        window.addEventListener('mouseup', () => {
+            isDraggingSlider = false;
+        });
+
+        sliderContainer.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) updateArchSlider(e.touches[0].clientX);
+        }, { passive: true });
+        sliderContainer.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) updateArchSlider(e.touches[0].clientX);
+        }, { passive: true });
+
+        function openCodeDiffModal() {
+            const m = document.getElementById('code-diff-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            unlockAchievement(3);
+        }
+        function closeCodeDiffModal() {
+            const m = document.getElementById('code-diff-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        // =====================================================================
+        // 5. PROJECT BREAKDOWN MODAL
+        // =====================================================================
+        const projectDetails = {
+            'stranglehold': {
+                badge: '// SHIPPED ON STEAM // FULL-CYCLE ARCHITECTURE',
+                title: 'Stranglehold of the Elite',
+                desc: 'Led complete Unity architecture from early prototype through Steam commercial release. Built deterministic state machines, decoupled combat & AI directors, and automated Steamworks build pipelines.',
+                bullets: [
+                    '✔ Locked 120 FPS gameplay across mid-tier & high-end PC hardware',
+                    '✔ Decoupled ScriptableObject & C# event bus with zero circular dependencies',
+                    '✔ Full Steamworks integration (Achievements, Cloud Saves, Input)'
+                ]
+            },
+            'conspiracies': {
+                badge: '// INDIE PRODUCTION // CUSTOM UNITY TOOLING',
+                title: 'Little Conspiracies',
+                desc: 'Designed a modular narrative & world-state graph architecture alongside custom Unity Editor tooling that allowed designers to build, validate, and test branching scenarios 3x faster.',
+                bullets: [
+                    '✔ Custom Unity Editor inspectors with automated broken-link validation',
+                    '✔ Crisp 2D/3D interaction polish and zero-softlock state serialization',
+                    '✔ Lightweight memory footprint (<420MB RAM)'
+                ]
+            },
+            'mobile-rescue': {
+                badge: '// PERFORMANCE RESCUE // DOTS & BURST',
+                title: 'High-Density Mobile Action Client',
+                desc: 'Rescued a mobile action build struggling at 28 FPS during 4,000-entity swarm encounters. Migrated bottlenecked MonoBehaviour loops to Burst-compiled C# Jobs and spatial hashing.',
+                bullets: [
+                    '✔ Frame time cut from 35.7ms (28 FPS) down to 8.3ms (120 FPS)',
+                    '✔ Eliminated 42KB/frame GC allocations down to 0 Bytes in hot-paths',
+                    '✔ Prevented mobile thermal throttling on iOS & Android devices'
+                ]
+            }
+        };
+
+        function openProjectModal(key) {
+            const data = projectDetails[key];
+            if (!data) return;
+            document.getElementById('pmodal-badge').textContent = data.badge;
+            document.getElementById('pmodal-title').textContent = data.title;
+            document.getElementById('pmodal-desc').textContent = data.desc;
+            const list = document.getElementById('pmodal-bullets');
+            list.innerHTML = data.bullets.map(b => `<li>${b}</li>`).join('');
+            const m = document.getElementById('project-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        }
+        function closeProjectModal() {
+            const m = document.getElementById('project-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        }
+
+        // =====================================================================
+        // 6. "MAD-LIBS" 3-CLICK DM BUILDER
+        // =====================================================================
+        const madLibOptions = {
+            project: ['2D Game', '3D Game', 'Mobile Title', 'Cross-Platform Project'],
+            help: ['Fixing FPS & Lag', 'Clean C# Architecture', 'Prototype-to-Launch Dev', 'A Technical Audit'],
+            time: ['ASAP', 'Next Month', 'This Quarter']
+        };
+        const madLibIndex = { project: 1, help: 0, time: 0 };
+
+        function cycleMadLib(key) {
+            madLibIndex[key] = (madLibIndex[key] + 1) % madLibOptions[key].length;
+            const valEl = document.getElementById(`madlib-${key}-val`);
+            valEl.textContent = madLibOptions[key][madLibIndex[key]];
+        }
+
+        function applyMadLibPreset(pIdx, hIdx, tIdx) {
+            madLibIndex.project = pIdx;
+            madLibIndex.help = hIdx;
+            madLibIndex.time = tIdx;
+            document.getElementById('madlib-project-val').textContent = madLibOptions.project[pIdx];
+            document.getElementById('madlib-help-val').textContent = madLibOptions.help[hIdx];
+            document.getElementById('madlib-time-val').textContent = madLibOptions.time[tIdx];
+        }
+
+        function copyMadLibMessage(channel) {
+            const proj = madLibOptions.project[madLibIndex.project];
+            const help = madLibOptions.help[madLibIndex.help];
+            const time = madLibOptions.time[madLibIndex.time];
+            const message = `Hey Yash! 👋 We’re building a ${proj} and we’d love your help with ${help} starting ${time}.`;
+
+            const temp = document.createElement('textarea');
+            temp.value = message;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            const confirmEl = document.getElementById('madlib-confirm');
+            confirmEl.textContent = channel
+                ? `✅ Copied "${message}" — Ready to paste into your ${channel} DM to Yash!`
+                : `✅ Copied to Clipboard! Drop it in Yash's DMs on LinkedIn / X / Discord.`;
+            confirmEl.classList.remove('hidden');
+
+            unlockAchievement(4);
+        }
+
+        // Escape key closes modals
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCodeDiffModal();
+                closeProjectModal();
+            }
+        });
+
+        // Initialize Sandbox on load
+        window.onload = function () {
+            resizeSandboxCanvas();
+            window.addEventListener('resize', resizeSandboxCanvas);
+            createBoids(100);
+            animateSandbox();
+        };
+    </script>
+</body>
+</html>
