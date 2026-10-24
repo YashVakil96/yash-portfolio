@@ -867,16 +867,21 @@
                                 <div class="text-yashEmerald font-bold text-sm mt-0.5">Locked 120 FPS</div>
                             </div>
                             <div class="p-3 rounded-2xl bg-obsidian border border-borderSubtle">
-                                <div class="text-gray-400 text-[10px]">LAUNCH STABILITY</div>
-                                <div class="text-white font-bold text-sm mt-0.5">99.94% Crash-Free</div>
+                                <div class="text-gray-400 text-[10px]">STEAM APP ID</div>
+                                <div class="text-[#66c0f4] font-bold text-sm mt-0.5">#3861500</div>
                             </div>
                         </div>
                     </div>
 
-                    <button type="button" onclick="openProjectModal('stranglehold')" class="juicy-btn w-full py-3.5 px-4 rounded-2xl bg-obsidian hover:bg-yashEmerald hover:text-obsidian text-yashEmerald border border-yashEmerald/30 font-mono text-xs font-bold transition-colors flex items-center justify-center gap-2">
-                        <span>View Breakdown</span>
-                        <span>→</span>
-                    </button>
+                    <div class="flex items-center gap-2.5 pt-2">
+                        <a href="https://store.steampowered.com/app/3861500/Stranglehold_of_the_Elite/" target="_blank" rel="noopener noreferrer" class="juicy-btn flex-1 py-3 px-3 rounded-2xl bg-[#171a21] hover:bg-[#2a475e] text-white border border-[#66c0f4]/40 font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm" title="Open Stranglehold of the Elite on Steam">
+                            <svg class="w-4 h-4 fill-current text-[#66c0f4]" viewBox="0 0 24 24"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.029 4.524 4.524s-2.03 4.524-4.524 4.524h-.105l-4.076 2.911c0 .052.005.105.005.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 14.819C1.933 20.09 6.74 24 12.001 24c6.627 0 12-5.373 12-12S18.605 0 11.979 0z"/></svg>
+                            <span>Steam Page ↗</span>
+                        </a>
+                        <button type="button" onclick="openProjectModal('stranglehold')" class="juicy-btn flex-1 py-3 px-3 rounded-2xl bg-obsidian hover:bg-yashEmerald hover:text-obsidian text-yashEmerald border border-yashEmerald/30 font-mono text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
+                            <span>Breakdown →</span>
+                        </button>
+                    </div>
                 </article>
 
                 <!-- Game 2: Little Conspiracies -->
@@ -1180,21 +1185,25 @@
     <!-- PROJECT BREAKDOWN MODAL                                               -->
     <!-- ===================================================================== -->
     <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/85 backdrop-blur-md">
-        <div class="bg-cardDark border-2 border-borderSubtle rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl">
-            <div class="bg-obsidian px-6 py-4 border-b border-borderSubtle flex items-center justify-between">
+        <div class="bg-cardDark border-2 border-borderSubtle rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+            <div class="bg-obsidian px-6 py-4 border-b border-borderSubtle flex items-center justify-between shrink-0">
                 <span id="pmodal-badge" class="font-mono text-xs text-yashEmerald font-bold">// CASE STUDY BREAKDOWN</span>
                 <button type="button" onclick="closeProjectModal()" class="px-3 py-1 rounded-lg bg-cardDark border border-borderSubtle text-gray-400 hover:text-white font-mono text-xs">
                     [Close ✕]
                 </button>
             </div>
-            <div class="p-6 sm:p-8 space-y-5">
+            <div class="p-6 sm:p-8 space-y-5 overflow-y-auto">
                 <h3 id="pmodal-title" class="font-display text-2xl sm:text-3xl font-bold text-white"></h3>
                 <p id="pmodal-desc" class="text-gray-300 text-sm sm:text-base leading-relaxed"></p>
+
+                <!-- Live Steam Embed / Custom Interactive Container -->
+                <div id="pmodal-embed" class="hidden"></div>
+
                 <div class="p-4 rounded-2xl bg-obsidian border border-borderSubtle space-y-2 font-mono text-xs">
                     <div class="text-yashCyan font-bold">KEY DELIVERABLES &amp; WINS:</div>
                     <ul id="pmodal-bullets" class="space-y-1.5 text-gray-300"></ul>
                 </div>
-                <div class="flex justify-end gap-3 pt-2">
+                <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
                     <button type="button" onclick="closeProjectModal()" class="px-4 py-2.5 rounded-xl bg-obsidian border border-borderSubtle text-gray-300 font-mono text-xs">
                         Close
                     </button>
@@ -1612,8 +1621,13 @@
                 bullets: [
                     '✔ Locked 120 FPS gameplay across mid-tier & high-end PC hardware',
                     '✔ Decoupled ScriptableObject & C# event bus with zero circular dependencies',
-                    '✔ Full Steamworks integration (Achievements, Cloud Saves, Input)'
-                ]
+                    '✔ Full Steamworks integration (Achievements, Cloud Saves, Steam Deck & Gamepad Input)',
+                    '✔ Robust swarm & bullet collision pooling handling 2,000+ simultaneous on-screen entities'
+                ],
+                steamAppId: '3861500',
+                steamUrl: 'https://store.steampowered.com/app/3861500/Stranglehold_of_the_Elite/',
+                genre: 'Reverse Bullet Heaven • Action',
+                platforms: 'Windows • macOS • Steam Deck Verified'
             },
             'conspiracies': {
                 badge: '// INDIE PRODUCTION // CUSTOM UNITY TOOLING',
@@ -1645,6 +1659,40 @@
             document.getElementById('pmodal-desc').textContent = data.desc;
             const list = document.getElementById('pmodal-bullets');
             list.innerHTML = data.bullets.map(b => `<li>${b}</li>`).join('');
+
+            const embedEl = document.getElementById('pmodal-embed');
+            if (embedEl) {
+                if (data.steamAppId) {
+                    embedEl.innerHTML = `
+                        <div class="space-y-3 pt-1">
+                            <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+                                <span class="text-gray-300 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-yashEmerald animate-pulse"></span>
+                                    <span class="text-white font-semibold">Live on Steam Store</span>
+                                    <span class="text-gray-500">•</span>
+                                    <span class="text-[#66c0f4]">App #${data.steamAppId}</span>
+                                </span>
+                                <span class="text-gray-400 text-[11px]">${data.platforms || 'PC'}</span>
+                            </div>
+                            <div class="rounded-2xl overflow-hidden border border-borderSubtle bg-[#171a21] shadow-lg">
+                                <iframe src="https://store.steampowered.com/widget/${data.steamAppId}/" frameborder="0" width="100%" height="190" class="w-full block"></iframe>
+                            </div>
+                            <div class="flex items-center justify-between pt-1">
+                                <span class="font-mono text-[11px] text-gray-400">Genre: ${data.genre || 'Action'}</span>
+                                <a href="${data.steamUrl}" target="_blank" rel="noopener noreferrer" class="juicy-btn px-4 py-2 rounded-xl bg-[#171a21] hover:bg-[#2a475e] text-white border border-[#66c0f4]/40 font-mono text-xs font-bold flex items-center gap-2 transition-all shadow-sm">
+                                    <svg class="w-3.5 h-3.5 fill-current text-[#66c0f4]" viewBox="0 0 24 24"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.029 4.524 4.524s-2.03 4.524-4.524 4.524h-.105l-4.076 2.911c0 .052.005.105.005.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 14.819C1.933 20.09 6.74 24 12.001 24c6.627 0 12-5.373 12-12S18.605 0 11.979 0z"/></svg>
+                                    <span>Open on Steam Store ↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    embedEl.classList.remove('hidden');
+                } else {
+                    embedEl.innerHTML = '';
+                    embedEl.classList.add('hidden');
+                }
+            }
+
             const m = document.getElementById('project-modal');
             m.classList.remove('hidden');
             m.classList.add('flex');
