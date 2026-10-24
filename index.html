@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yash Vakil | Lead Unity Developer & Studio Partner</title>
     <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%23090A0F%22%2F%3E%3Crect%20width%3D%2260%22%20height%3D%2260%22%20x%3D%222%22%20y%3D%222%22%20rx%3D%2214%22%20fill%3D%22%2312151E%22%20stroke%3D%22%2300E676%22%20stroke-width%3D%222%22%20stroke-opacity%3D%220.5%22%2F%3E%3Ctext%20x%3D%2211%22%20y%3D%2244%22%20font-family%3D%22system-ui%2C%20-apple-system%2C%20sans-serif%22%20font-weight%3D%22900%22%20font-size%3D%2228%22%20fill%3D%22%23FFFFFF%22%20letter-spacing%3D%22-1%22%3EYV%3C%2Ftext%3E%3Ccircle%20cx%3D%2251%22%20cy%3D%2241%22%20r%3D%224.5%22%20fill%3D%22%2300E676%22%2F%3E%3C%2Fsvg%3E">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
     <meta name="theme-color" content="#090A0F">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -171,29 +172,16 @@
             </a>
 
             <!-- Quick Nav Links -->
-            <nav class="hidden lg:flex items-center gap-1 bg-cardDark/90 border border-borderSubtle rounded-full px-3 py-1.5 text-sm font-medium">
-                <a href="#sandbox" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Sandbox</a>
-                <a href="#upgrades" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Upgrades</a>
-                <a href="#architecture" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Architecture</a>
-                <a href="#games" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Games</a>
-                <a href="#say-hi" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors">Say Hi</a>
+            <nav class="hidden lg:flex items-center gap-1 bg-cardDark/90 border border-borderSubtle rounded-full px-3 py-1.5 text-sm font-medium whitespace-nowrap shrink-0">
+                <a href="#sandbox" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap">Sandbox</a>
+                <a href="#upgrades" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap">Upgrades</a>
+                <a href="#architecture" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap">Architecture</a>
+                <a href="#games" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap">Games</a>
+                <a href="#say-hi" class="px-3.5 py-1.5 rounded-full text-gray-300 hover:text-white hover:bg-white/5 transition-colors whitespace-nowrap">Say Hi</a>
             </nav>
 
-            <!-- Right Controls: Social Links + Achievement Counter + Inquiries CTA -->
-            <div class="flex items-center gap-2 sm:gap-3 relative">
-                
-                <!-- Quick Social & Contact Links (Desktop) -->
-                <div class="hidden sm:flex items-center gap-1.5 text-gray-400">
-                    <a href="https://github.com/YashVakil96" target="_blank" rel="noopener noreferrer" class="juicy-btn p-2 rounded-xl bg-cardDark border border-borderSubtle hover:border-gray-400 hover:text-white transition-colors" title="GitHub: YashVakil96" aria-label="GitHub Profile">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/yashdvakil/" target="_blank" rel="noopener noreferrer" class="juicy-btn p-2 rounded-xl bg-cardDark border border-borderSubtle hover:border-yashCyan/60 hover:text-yashCyan transition-colors" title="LinkedIn: Yash Vakil" aria-label="LinkedIn Profile">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.72a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
-                    </a>
-                    <a href="mailto:yashvakil96@gmail.com" class="juicy-btn p-2 rounded-xl bg-cardDark border border-borderSubtle hover:border-yashEmerald/60 hover:text-yashEmerald transition-colors" title="Email: yashvakil96@gmail.com" aria-label="Send Email">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    </a>
-                </div>
+            <!-- Right Controls: Achievement Counter + Inquiries CTA -->
+            <div class="flex items-center gap-3 relative shrink-0">
                 
                 <!-- Interactive Achievement Counter Pill -->
                 <div class="relative">
